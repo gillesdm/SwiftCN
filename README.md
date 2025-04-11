@@ -61,11 +61,13 @@ struct ContentView: View {
         .padding()
     }
 }
+```
 
-🧩 Components
-Button
+## 🧩 Components
+### Button
 The Button component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
-Variants
+
+#### Variants
 
 // Primary button (default)
 Button("Primary Button") {
