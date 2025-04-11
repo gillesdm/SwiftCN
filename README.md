@@ -315,6 +315,34 @@ SAlertDialog { openAction in
 ``` 
 </details>
 
+---
+
+### SAvatar
+The ⁠SAvatar component displays a user's profile picture or a fallback.
+
+<details>
+<summary>More about the SAvatar</summary>
+```swift
+// Initials fallback
+SAvatar(initials: "JD")
+
+// Icon fallback
+SAvatar(systemName: "person.fill")
+
+// With image and initials fallback
+SAvatar(image: Image("profile-pic"), initials: "JD")
+
+// With URL image and initials fallback
+SAvatar.url(URL(string: "..."), fallbackInitials: "JD")
+
+// Different sizes and shapes
+SAvatar(initials: "SM", size: .sm, shape: .rounded)
+
+// With status indicator
+SAvatar(initials: "ON", status: .online)
+```
+</details>
+
 ## 🎨 Customization
 ### Theming
 SwiftCN is built on a token-based design system, making it incredibly customizable:
