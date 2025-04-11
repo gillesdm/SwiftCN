@@ -344,6 +344,39 @@ SAvatar(initials: "ON", status: .online)
 ```
 </details>
 
+---
+
+### SBadge
+The `SBadge`component is used for displaying small status descriptors or tags.
+
+<details>
+<summary>More about the SBadge</summary>
+
+#### Basic Usage
+
+```swift
+SBadge("Default Badge") // Default style
+
+SBadge("Active", variant: .success)
+
+SBadge("Beta", variant: .secondary)
+
+SBadge("Error", variant: .destructive)
+
+SBadge("Archived", variant: .outline)
+```
+
+#### Variants
+Variants
+- .default_ (Primary background)
+- .secondary (Secondary background)
+- .destructive (Destructive background)
+- .outline (Transparent background with border)
+- .success (Success background)
+- .warning (Warning background)
+- .info (Info background)
+</details>
+
 ## 🎨 Customization
 ### Theming
 SwiftCN is built on a token-based design system, making it incredibly customizable:
