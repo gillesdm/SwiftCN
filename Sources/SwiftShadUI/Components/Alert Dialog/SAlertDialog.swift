@@ -70,7 +70,7 @@ public struct SAlertDialog<TriggerContent: View, Content: View>: View {
                 .onDisappear {
                     animationState = .closed
                 }
-                .onExitCommand { // For macOS escape key
+                .handleEscapeKey {
                     closeDialog()
                 }
                 #if os(iOS)
@@ -166,18 +166,21 @@ public struct SAlertDialogParts {
     }
 }
 
+// Platform-specific implementation for escape key handling
 #if os(macOS)
+// Use native onExitCommand on macOS
 extension View {
-    func onExitCommand(perform action: @escaping () -> Void) -> some View {
-        self.onExitCommand {
+    func handleEscapeKey(perform action: @escaping () -> Void) -> some View {
+        return self.onExitCommand {
             action()
         }
     }
 }
 #else
+// No-op on iOS and other platforms
 extension View {
-    func onExitCommand(perform action: @escaping () -> Void) -> some View {
-        self
+    func handleEscapeKey(perform action: @escaping () -> Void) -> Self {
+        return self
     }
 }
 #endif
