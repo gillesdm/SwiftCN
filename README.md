@@ -322,6 +322,7 @@ The ⁠SAvatar component displays a user's profile picture or a fallback.
 
 <details>
 <summary>More about the SAvatar</summary>
+
 ```swift
 // Initials fallback
 SAvatar(initials: "JD")
