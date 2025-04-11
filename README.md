@@ -429,6 +429,58 @@ SCard {
 *Note: Padding is applied by the Header, Content, and Footer parts. If you place content directly in ⁠SCard without these parts, you may need to add your own padding.*
 </details>
 
+---
+
+### SCheckbox
+The `SCheckbox` component allows users to select or deselect an option.
+
+<details>
+<summary>More about SCheckbox</summary>
+
+#### Basic Usage
+
+Bind the checkbox to a boolean state variable:
+
+```swift
+@State private var isSelected = false
+
+SCheckbox(isOn: $isSelected)
+```
+
+#### With Label (Recommended)
+For better accessibility and usability, combine the checkbox with a label, often using a ⁠Button for the interaction area:
+```swift
+@State private var acceptTerms = false
+
+Button {
+    acceptTerms.toggle()
+} label: {
+    HStack {
+        SCheckbox(isOn: $acceptTerms)
+        Text("Accept terms and conditions")
+    }
+}
+.buttonStyle(.plain) // Use plain style for custom appearance
+```
+
+#### Disabled State
+Apply the ⁠.disabled() modifier to the checkbox or its container:
+```swift
+SCheckbox(isOn: .constant(true))
+    .disabled(true)
+
+// Or disable a labeled checkbox
+Button { /* Action */ } label: {
+    HStack {
+        SCheckbox(isOn: $someState)
+        Text("Disabled Checkbox")
+    }
+}
+.buttonStyle(.plain)
+.disabled(true)
+```
+</details>
+
 ## 🎨 Customization
 ### Theming
 SwiftCN is built on a token-based design system, making it incredibly customizable:
