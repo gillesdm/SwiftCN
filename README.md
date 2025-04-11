@@ -377,6 +377,58 @@ Variants
 - .info (Info background)
 </details>
 
+---
+
+### SCard
+The `SCard` component is a versatile container for grouping content with a distinct background, border, and padding. It supports structured composition using nested parts.
+
+<details>
+<summary>More about the SCard</summary>
+
+#### Basic Usage
+
+```swift
+SCard {
+    // Content goes here, usually using SCardParts
+    Text("Simple card content")
+        .padding() // Add padding if not using SCardParts.Content
+}
+```
+
+#### Structured Usage
+Use the nested ⁠SCardParts structs for standard card layouts:
+
+```swift
+SCard {
+    SCardParts.Header {
+        SCardParts.Title("Account Settings")
+        SCardParts.Description("Update your profile information.")
+    }
+    SCardParts.Content {
+        // Your form fields or other content here
+        Text("Form content goes here...")
+            .foregroundColor(Colors.cardForeground)
+    }
+    Divider().padding(.horizontal, Spacing.lg) // Optional Divider
+    SCardParts.Footer {
+        HStack {
+            Spacer()
+            SButton("Save Changes") {}
+        }
+    }
+}
+```
+
+#### Available Parts
+- **SCardParts.Header**: Top section, typically contains Title and Description. Applies standard header padding.
+- **SCardParts.Title**: Styled text for the main card title within the Header.
+- **SCardParts.Description**: Styled text for secondary information within the Header.
+- **SCardParts.Content**: Main content area. Applies standard content padding.
+- **SCardParts.Footer**: Bottom section, often for actions. Applies standard footer padding.
+
+*Note: Padding is applied by the Header, Content, and Footer parts. If you place content directly in ⁠SCard without these parts, you may need to add your own padding.*
+</details>
+
 ## 🎨 Customization
 ### Theming
 SwiftCN is built on a token-based design system, making it incredibly customizable:
