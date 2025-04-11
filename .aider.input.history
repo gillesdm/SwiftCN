@@ -1,0 +1,15 @@
+
+# 2025-04-11 15:42:23.111690
++n
+
+# 2025-04-11 15:42:39.045780
++/add README.md
+
+# 2025-04-11 15:42:43.784586
++Fix the readme file
+
+# 2025-04-11 15:43:09.237041
++The formatting doesn't seem correct, most of it is shown in a code block, which shouldnt be the case
+
+# 2025-04-11 15:44:16.999046
++Also fix the formatting of the components section and everything underneath in the readme file. It doesn't seem right.
