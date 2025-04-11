@@ -181,6 +181,102 @@ struct AccordionExample: View {
     - `title`: The text displayed in the item's header.
     - `icon`: An optional `Image` to display next to the title (not implemented in the current version shown).
     - `content`: The view to display when the item is open.
+    
+### SAlert
+
+The `SAlert` component displays important messages in different styles.
+
+#### Basic Usage
+
+```swift
+// Default alert with title and description
+SAlert(
+    title: "Heads up!",
+    description: "This is an important message."
+)
+
+// Destructive alert
+SAlert(
+    title: "Warning",
+    description: "This action cannot be undone.",
+    variant: .destructive
+)
+
+// Success alert
+SAlert(
+    title: "Success",
+    description: "Your changes have been saved.",
+    variant: .success
+)
+```
+
+#### Alert Variants
+
+```swift
+// Default variant
+SAlert(title: "Default", description: "Message...", variant: .default_)
+
+// Destructive variant
+SAlert(title: "Destructive", description: "Message...", variant: .destructive)
+
+// Success variant
+SAlert(title: "Success", description: "Message...", variant: .success)
+
+// Warning variant
+SAlert(title: "Warning", description: "Message...", variant: .warning)
+```
+
+#### Custom Content
+```swift
+SAlert(title: "Custom Content") {
+    VStack(alignment: .leading, spacing: 8) {
+        Text("You can add any custom content here.")
+        SButton("Take Action", size: .sm) {
+            // Handle action
+        }
+    }
+}
+```
+
+#### Custom Icon
+```swift
+SAlert(
+    title: "Custom Icon",
+    description: "This alert uses a custom icon.",
+    icon: Image(systemName: "star.fill")
+)
+
+```
+
+
+### Features of the SAlert Component:
+
+1. **Multiple Variants**: 
+   - Default (neutral information)
+   - Destructive (for dangerous actions)
+   - Success (for confirmations)
+   - Warning (for cautions)
+
+2. **Flexible Content**:
+   - Can display a title and description
+   - Supports custom content via ViewBuilder
+   - Simple initializer for text-only alerts
+
+3. **Visual Indicators**:
+   - Color-coded borders and icons
+   - Default icons for each variant
+   - Support for custom icons
+
+4. **Accessibility**:
+   - Combines children for proper screen reader behavior
+   - Semantic colors for light/dark mode
+
+5. **Customization**:
+   - Follows the SwiftShadUI design token system
+   - Clean, minimal design matching shadcn/ui style
+
+The design matches shadcn/ui's clean aesthetic with proper spacing, borders, and typography while maintaining support for both light and dark mode.
+
 
 ## 🎨 Customization
 ### Theming
@@ -201,51 +297,6 @@ Text("Body text").typography(.base)
 // Spacing
 .padding(Spacing.md)
 .padding(.horizontal, Spacing.lg)
-```
-
-## 📱 Examples
-### Sign-Up Form
-
-```swift
-VStack(spacing: Spacing.lg) {
-    Text("Create an Account")
-        .typography(.h2)
-
-    // Form fields would go here
-
-    SButton("Sign Up", fullWidth: true) {
-        // Handle sign up
-    }
-
-    SButton("Already have an account?",
-           variant: .link) {
-        // Navigate to login
-    }
-}
-.padding()
-```
-
-### Action Sheet
-
-```swift
-VStack(spacing: Spacing.md) {
-    SButton("Save Changes", fullWidth: true) {
-        // Save action
-    }
-
-    SButton("Discard",
-           variant: .outline,
-           fullWidth: true) {
-        // Discard action
-    }
-
-    SButton("Cancel",
-           variant: .ghost,
-           fullWidth: true) {
-        // Cancel action
-    }
-}
-.padding()
 ```
 
 ## 🗺️ Roadmap
