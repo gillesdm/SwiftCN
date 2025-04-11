@@ -1,57 +1,84 @@
-// SAccordionPreview.swift (renamed from AccordionPreview.swift)
 import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
 struct SAccordionPreviews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: Spacing.xl) {
-            // Single type accordion
-            VStack(alignment: .leading, spacing: Spacing.md) {
-                Text("Single Accordion")
-                    .typography(.h3)
-                
-                SAccordion(type: .single, defaultOpenItems: ["item1"]) {
-                    SAccordionItem(id: "item1", title: "What is SwiftShadUI?") {
-                        Text("SwiftShadUI is a component library for SwiftUI inspired by shadcn/ui, providing customizable and accessible UI components.")
-                            .typography(.base)
-                    }
-                    
-                    SAccordionItem(id: "item2", title: "Is it customizable?") {
-                        Text("Yes! SwiftShadUI is designed to be fully customizable. You can modify colors, typography, spacing, and more to match your app's design.")
-                            .typography(.base)
-                    }
-                    
-                    SAccordionItem(id: "item3", title: "How do I install it?", icon: Image(systemName: "questionmark.circle")) {
-                        Text("Add SwiftShadUI to your project using Swift Package Manager by adding the repository URL to your project dependencies.")
-                            .typography(.base)
-                    }
-                }
-                .frame(maxWidth: 500)
-            }
+        ZStack {
+            // Background that matches the app background
+            Colors.background.edgesIgnoringSafeArea(.all)
             
-            // Multiple type accordion
-            VStack(alignment: .leading, spacing: Spacing.md) {
-                Text("Multiple Accordion")
-                    .typography(.h3)
+            VStack(spacing: 40) {
+                // Title
+                Text("Accordion Examples")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(Colors.foreground)
                 
-                SAccordion(type: .multiple, defaultOpenItems: ["item1", "item3"]) {
-                    SAccordionItem(id: "item1", title: "Section 1") {
-                        VStack(alignment: .leading, spacing: Spacing.md) {
-                            Text("This is the content for section 1.")
-                                .typography(.base)
-                            
-                            SButton("Learn More", variant: .secondary) {
-                                print("Button tapped")
-                            }
+                // Single type accordion
+                VStack(alignment: .leading, spacing: 0) {
+                    SAccordion(type: .single) {
+                        SAccordionItem(id: "item1", title: "Is it accessible?") {
+                            Text("Yes. It adheres to the WAI-ARIA design pattern.")
+                                .foregroundColor(Colors.mutedForeground)
+                        }
+                        
+                        SAccordionItem(id: "item2", title: "Is it styled?") {
+                            Text("Yes. It comes with default styles that match the other components and can be overridden with your own.")
+                                .foregroundColor(Colors.mutedForeground)
+                        }
+                        
+                        SAccordionItem(id: "item3", title: "Is it animated?") {
+                            Text("Yes. It's animated by default, but you can disable it if you prefer.")
+                                .foregroundColor(Colors.mutedForeground)
                         }
                     }
-                    
-                    // Other items...
+                    .frame(maxWidth: 500)
                 }
-                .frame(maxWidth: 500)
+                .padding(.horizontal, 24)
+                .background(Colors.background)
+                .cornerRadius(8)
+                .padding(.horizontal)
             }
+            .padding(.vertical, 40)
         }
-        .padding()
         .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.light)
+        
+        // Also show in dark mode
+        ZStack {
+            Colors.background.edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 40) {
+                Text("Accordion Examples")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(Colors.foreground)
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    SAccordion(type: .single) {
+                        SAccordionItem(id: "item1", title: "Is it accessible?") {
+                            Text("Yes. It adheres to the WAI-ARIA design pattern.")
+                                .foregroundColor(Colors.mutedForeground)
+                        }
+                        
+                        SAccordionItem(id: "item2", title: "Is it styled?") {
+                            Text("Yes. It comes with default styles that match the other components and can be overridden with your own.")
+                                .foregroundColor(Colors.mutedForeground)
+                        }
+                        
+                        SAccordionItem(id: "item3", title: "Is it animated?") {
+                            Text("Yes. It's animated by default, but you can disable it if you prefer.")
+                                .foregroundColor(Colors.mutedForeground)
+                        }
+                    }
+                    .frame(maxWidth: 500)
+                }
+                .padding(.horizontal, 24)
+                .background(Colors.background)
+                .cornerRadius(8)
+                .padding(.horizontal)
+            }
+            .padding(.vertical, 40)
+        }
+        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
     }
 }
