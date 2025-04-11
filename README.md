@@ -28,9 +28,10 @@ Or add it directly to your `Package.swift` file:
 dependencies: [
     .package(url: "https://github.com/gillesdm/SwiftCN.git", from: "0.1.0") // Note: Update this URL if it changes
 ]
+```
 
-🚀 Quick Start
-
+## 🚀 Quick Start
+```swift
 import SwiftUI
 import SwiftCN
 
@@ -64,8 +65,12 @@ struct ContentView: View {
 ```
 
 ## 🧩 Components
+
 ### SButton
 The SButton component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
+
+<details>
+<summary>More about the SButton</summary>
 
 #### Variants
 
@@ -139,9 +144,15 @@ SButton("Not Available", isEnabled: false) {
     // This action won't trigger
 }
 ```
+</details>
+
+---
 
 ### SAccordion
 A vertically stacked set of interactive headings that each reveal a section of content.
+
+<details>
+<summary>More about SAccordion</summary>
 
 #### Usage
 
@@ -181,10 +192,15 @@ struct AccordionExample: View {
     - `title`: The text displayed in the item's header.
     - `icon`: An optional `Image` to display next to the title (not implemented in the current version shown).
     - `content`: The view to display when the item is open.
+</details>
+
+---
     
 ### SAlert
-
 The `SAlert` component displays important messages in different styles.
+
+<details>
+<summary>More about the SAlert</summary>
 
 #### Basic Usage
 
@@ -247,36 +263,57 @@ SAlert(
 )
 
 ```
+</details>
 
+---
 
-### Features of the SAlert Component:
+### SAlertDialog
+The `SAlertDialog` component is a modal dialog that appears on top of the entire application.
 
-1. **Multiple Variants**: 
-   - Default (neutral information)
-   - Destructive (for dangerous actions)
-   - Success (for confirmations)
-   - Warning (for cautions)
+<details>
+<summary>More about the SAlertDialog</summary>
 
-2. **Flexible Content**:
-   - Can display a title and description
-   - Supports custom content via ViewBuilder
-   - Simple initializer for text-only alerts
+#### Setup
 
-3. **Visual Indicators**:
-   - Color-coded borders and icons
-   - Default icons for each variant
-   - Support for custom icons
+First, add the `withAlertDialogs()` modifier to your root view:
 
-4. **Accessibility**:
-   - Combines children for proper screen reader behavior
-   - Semantic colors for light/dark mode
+```swift
+@main
+struct MyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .withAlertDialogs()
+        }
+    }
+}
+```
 
-5. **Customization**:
-   - Follows the SwiftCN design token system
-   - Clean, minimal design matching shadcn/ui style
-
-The design matches shadcn/ui's clean aesthetic with proper spacing, borders, and typography while maintaining support for both light and dark mode.
-
+#### Basic Usage
+```swift
+SAlertDialog { openAction in
+    SButton("Open Dialog") {
+        openAction()
+    }
+} content: {
+    VStack(alignment: .leading, spacing: 0) {
+        SAlertDialogParts.Title("Are you sure?")
+        SAlertDialogParts.Description("This action cannot be undone.")
+        
+        SAlertDialogParts.Footer {
+            SButton("Cancel", variant: .outline) {
+                AlertDialogController.shared.dismiss()
+            }
+            
+            SButton("Continue") {
+                // Perform action
+                AlertDialogController.shared.dismiss()
+            }
+        }
+    }
+}
+``` 
+</details>
 
 ## 🎨 Customization
 ### Theming
