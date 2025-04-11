@@ -3,8 +3,7 @@ import SwiftUI
 @available(iOS 15.0, macOS 12.0, *)
 struct SAlertDialogPreviews: PreviewProvider {
     struct AlertDialogDemo: View {
-        @State private var showDialog = false
-        @State private var showDeleteDialog = false
+        @StateObject private var controller = AlertDialogController.shared
         
         var body: some View {
             ZStack {
@@ -15,10 +14,9 @@ struct SAlertDialogPreviews: PreviewProvider {
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(Colors.foreground)
                     
-                    // Standard dialog example - updated to pass open action to button
-                    SAlertDialog(isOpen: $showDialog) { openAction in
+                    // Standard dialog example
+                    SAlertDialog { openAction in
                         SButton("Open Dialog") {
-                            print("Button tapped, calling openAction")
                             openAction()
                         }
                     } content: {
@@ -28,22 +26,19 @@ struct SAlertDialogPreviews: PreviewProvider {
                             
                             SAlertDialogParts.Footer {
                                 SButton("Cancel", variant: .outline) {
-                                    print("Cancel button tapped")
-                                    showDialog = false
+                                    controller.dismiss()
                                 }
                                 
-                                SButton("Continue", variant: .destructive) {
-                                    print("Continue button tapped")
-                                    showDialog = false
+                                SButton("Continue", variant: .primary) {
+                                    controller.dismiss()
                                 }
                             }
                         }
                     }
                     
-                    // Destructive dialog example - updated to pass open action to button
-                    SAlertDialog(isOpen: $showDeleteDialog) { openAction in
+                    // Destructive dialog example
+                    SAlertDialog { openAction in
                         SButton("Delete Account", variant: .destructive) {
-                            print("Delete Account button tapped, calling openAction")
                             openAction()
                         }
                     } content: {
@@ -53,13 +48,11 @@ struct SAlertDialogPreviews: PreviewProvider {
                             
                             SAlertDialogParts.Footer {
                                 SButton("Cancel", variant: .ghost) {
-                                    print("Cancel delete button tapped")
-                                    showDeleteDialog = false
+                                    controller.dismiss()
                                 }
                                 
                                 SButton("Delete", variant: .destructive) {
-                                    print("Confirm delete button tapped")
-                                    showDeleteDialog = false
+                                    controller.dismiss()
                                 }
                             }
                         }
@@ -67,9 +60,7 @@ struct SAlertDialogPreviews: PreviewProvider {
                 }
                 .padding()
             }
-            .onAppear {
-                print("Preview appeared")
-            }
+            .withAlertDialogs() // Add this modifier to enable global dialog support
         }
     }
     

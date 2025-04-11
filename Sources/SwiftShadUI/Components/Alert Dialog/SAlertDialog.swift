@@ -1,13 +1,56 @@
 import SwiftUI
 
+/// Alert dialog controller that manages dialog state globally
+@available(iOS 15.0, macOS 12.0, *)
+public class AlertDialogController: ObservableObject {
+    @Published public var isPresented: Bool = false
+    @Published public var content: AnyView? = nil
+    
+    public static let shared = AlertDialogController()
+    
+    public func present<Content: View>(@ViewBuilder content: () -> Content) {
+        self.content = AnyView(content())
+        self.isPresented = true
+    }
+    
+    public func dismiss() {
+        self.isPresented = false
+    }
+}
+
 /// A modal alert dialog component that renders a dialog overlay centered on the screen.
 /// Can be used for confirmation dialogs, alerts, or other interactions that require user attention.
 @available(iOS 15.0, macOS 12.0, *)
 public struct SAlertDialog<TriggerContent: View, Content: View>: View {
-    @Binding private var isOpen: Bool
-    private let triggerContent: ((@escaping () -> Void)) -> TriggerContent
-    private let content: Content
+    @StateObject private var controller = AlertDialogController.shared
+    private var triggerContent: ((@escaping () -> Void)) -> TriggerContent
+    private var dialogContent: () -> Content
     
+    /// Creates a new alert dialog with a custom trigger and content
+    /// - Parameters:
+    ///   - triggerContent: Content that will trigger the dialog when tapped
+    ///   - content: Content of the dialog
+    public init(
+        @ViewBuilder triggerContent: @escaping ((@escaping () -> Void)) -> TriggerContent,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.triggerContent = triggerContent
+        self.dialogContent = content
+    }
+    
+    public var body: some View {
+        triggerContent {
+            controller.present {
+                dialogContent()
+            }
+        }
+    }
+}
+
+/// View modifier to add alert dialog support to any view
+@available(iOS 15.0, macOS 12.0, *)
+public struct AlertDialogModifier: ViewModifier {
+    @StateObject private var controller = AlertDialogController.shared
     @State private var animationState: AnimationState = .closed
     
     private enum AnimationState {
@@ -15,102 +58,62 @@ public struct SAlertDialog<TriggerContent: View, Content: View>: View {
         case closed
     }
     
-    /// Creates a new alert dialog with a custom trigger and content
-    /// - Parameters:
-    ///   - isOpen: Binding that controls whether the dialog is shown
-    ///   - triggerContent: Content that will trigger the dialog when tapped, receives openDialog action
-    ///   - content: Content of the dialog
-    public init(
-        isOpen: Binding<Bool>,
-        @ViewBuilder triggerContent: @escaping ((@escaping () -> Void)) -> TriggerContent,
-        @ViewBuilder content: () -> Content
-    ) {
-        self._isOpen = isOpen
-        self.triggerContent = triggerContent
-        self.content = content()
-    }
-    
-    public var body: some View {
+    public func body(content: Content) -> some View {
         ZStack {
-            // Trigger with explicit open action passed to it
-            triggerContent({
-                print("Dialog trigger tapped") // Logging
-                openDialog()
-            })
+            // Main content
+            content
             
-            // Dialog overlay (only shown when isOpen is true)
-            if isOpen {
-                GeometryReader { geometry in
-                    ZStack {
-                        // Backdrop
-                        Colors.overlay
-                            .edgesIgnoringSafeArea(.all)
-                            .onTapGesture {
-                                print("Backdrop tapped") // Logging
-                                closeDialog()
+            // Global overlay for the dialog
+            if controller.isPresented {
+                Color.black.opacity(0.5)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        closeDialog()
+                    }
+                    .transition(.opacity)
+                
+                if let dialogContent = controller.content {
+                    dialogContent
+                        .padding(Spacing.lg)
+                        .background(Colors.background)
+                        .cornerRadius(8)
+                        .shadow(color: Colors.shadow, radius: 10, x: 0, y: 4)
+                        .frame(maxWidth: 500)
+                        .scaleEffect(animationState == .open ? 1 : 0.95)
+                        .opacity(animationState == .open ? 1 : 0)
+                        .onTapGesture { } // Prevent taps from reaching backdrop
+                        .transition(.opacity)
+                        .onAppear {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                animationState = .open
                             }
-                        
-                        // Dialog content
-                        content
-                            .padding(Spacing.lg)
-                            .background(Colors.background)
-                            .cornerRadius(8)
-                            .shadow(color: Colors.shadow, radius: 10, x: 0, y: 4)
-                            .frame(maxWidth: min(geometry.size.width * 0.9, 500))
-                            .scaleEffect(animationState == .open ? 1 : 0.95)
-                            .opacity(animationState == .open ? 1 : 0)
-                            .onTapGesture { } // Prevent taps from reaching backdrop
-                    }
-                }
-                .transition(.opacity)
-                .zIndex(999)
-                .onAppear {
-                    print("Dialog appeared") // Logging
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                        animationState = .open
-                    }
-                }
-                .onDisappear {
-                    print("Dialog disappeared") // Logging
-                    animationState = .closed
-                }
-                .handleEscapeKey {
-                    print("Escape key pressed") // Logging
-                    closeDialog()
-                }
-                #if os(iOS)
-                .gesture(
-                    DragGesture(minimumDistance: 20)
-                        .onEnded { _ in
-                            print("Drag gesture detected") // Logging
+                        }
+                        .handleEscapeKey {
                             closeDialog()
                         }
-                )
-                #endif
+                }
+            }
+        }
+        .onChange(of: controller.isPresented) { newValue in
+            if !newValue {
+                // Dialog was dismissed externally
+                animationState = .closed
             }
         }
     }
     
-    private func openDialog() {
-        print("openDialog() called, setting isOpen to true") // Logging
-        isOpen = true
-    }
-    
     private func closeDialog() {
-        print("closeDialog() called") // Logging
         withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
             animationState = .closed
         }
         
         // Slight delay to allow the animation to complete
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            print("Dialog closing after animation") // Logging
-            isOpen = false
+            controller.dismiss()
         }
     }
 }
 
-// Rest of the file remains the same
 /// Pre-defined parts of the alert dialog
 @available(iOS 15.0, macOS 12.0, *)
 public struct SAlertDialogParts {
@@ -172,6 +175,14 @@ public struct SAlertDialogParts {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.top, Spacing.md)
         }
+    }
+}
+
+// Extension to make it easy to add alert dialog support to any view
+@available(iOS 15.0, macOS 12.0, *)
+public extension View {
+    func withAlertDialogs() -> some View {
+        self.modifier(AlertDialogModifier())
     }
 }
 
