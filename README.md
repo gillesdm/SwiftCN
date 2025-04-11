@@ -1,9 +1,9 @@
 
-# SwiftCN: Where shadcn/ui meets SwiftUI in a beautiful, customizable design system
+# SwiftShadUI: Where shadcn/ui meets SwiftUI in a beautiful, customizable design system
 
 🪄 **The Magic of shadcn/ui, Now in SwiftUI!**
-SwiftCN brings the elegant, customizable design philosophy of shadcn/ui to the SwiftUI ecosystem. Not a rigid component library, but a collection of reusable components you can copy, paste, and customize to your heart's content!
-Built on a solid foundation of design tokens and best practices, SwiftCN gives you the building blocks for creating beautiful, accessible, and consistent UIs without sacrificing flexibility.
+SwiftShadUI brings the elegant, customizable design philosophy of shadcn/ui to the SwiftUI ecosystem. Not a rigid component library, but a collection of reusable components you can copy, paste, and customize to your heart's content!
+Built on a solid foundation of design tokens and best practices, SwiftShadUI gives you the building blocks for creating beautiful, accessible, and consistent UIs without sacrificing flexibility.
 
 ## ✨ Features
 -  🧩 **Modular Components:** Use what you need, leave what you don't
@@ -16,9 +16,9 @@ Built on a solid foundation of design tokens and best practices, SwiftCN gives y
 
 ## 📦 Installation
 ### Swift Package Manager
-Add SwiftCN to your project through Xcode:
+Add SwiftShadUI to your project through Xcode:
 1. Go to **File > Add Packages...**
-2. Enter the repository URL: `https://github.com/gillesdm/SwiftCN.git`
+2. Enter the repository URL: `https://github.com/gillesdm/SwiftShadUI.git` (Note: Update this URL if it changes)
 3. Choose the version rule (recommended: **Up to Next Major**)
 4. Click **Add Package**
 
@@ -26,32 +26,32 @@ Or add it directly to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/gillesdm/SwiftCN.git", from: "0.1.0")
+    .package(url: "https://github.com/gillesdm/SwiftShadUI.git", from: "0.1.0") // Note: Update this URL if it changes
 ]
 
 🚀 Quick Start
 
 import SwiftUI
-import SwiftCN
+import SwiftShadUI
 
 struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
-            Text("Welcome to SwiftCN!")
+            Text("Welcome to SwiftShadUI!")
                 .typography(.h2)
-            
-            Button("Get Started", size: .lg, fullWidth: true) {
+
+            SButton("Get Started", size: .lg, fullWidth: true) {
                 print("Let's go!")
             }
-            
-            Button("Learn More",
+
+            SButton("Learn More",
                    variant: .outline,
                    icon: Image(systemName: "book.fill"),
                    action: {
                 print("Opening docs...")
             })
-            
-            Button("Cancel",
+
+            SButton("Cancel",
                    variant: .ghost,
                    size: .sm,
                    action: {
@@ -61,84 +61,139 @@ struct ContentView: View {
         .padding()
     }
 }
+```
 
-🧩 Components
-Button
-The Button component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
-Variants
+## 🧩 Components
+### SButton
+The SButton component is the cornerstone of user interaction in any app. SwiftShadUI's button is highly customizable with various styles, sizes, and states.
 
+#### Variants
+
+```swift
 // Primary button (default)
-Button("Primary Button") {
+SButton("Primary Button") {
     // Action here
 }
 
 // Secondary button
-Button("Secondary Button", variant: .secondary) {
+SButton("Secondary Button", variant: .secondary) {
     // Action here
 }
 
 // Outline button
-Button("Outline Button", variant: .outline) {
+SButton("Outline Button", variant: .outline) {
     // Action here
 }
 
 // Ghost button
-Button("Ghost Button", variant: .ghost) {
+SButton("Ghost Button", variant: .ghost) {
     // Action here
 }
 
 // Link button
-Button("Link Button", variant: .link) {
+SButton("Link Button", variant: .link) {
     // Action here
 }
 
 // Destructive button
-Button("Delete", variant: .destructive) {
+SButton("Delete", variant: .destructive) {
     // Careful now!
 }
+```
 
-Sizes
+##### Sizes
 
-Button("Small", size: .sm) {}
-Button("Medium", size: .md) {} // Default
-Button("Large", size: .lg) {}
+```swift
+SButton("Small", size: .sm) {}
+SButton("Medium", size: .md) {} // Default
+SButton("Large", size: .lg) {}
+```
 
-Icons
+##### Icons
 
+```swift
 // Leading icon (default)
-Button("With Icon",
+SButton("With Icon",
        icon: Image(systemName: "star.fill")) {
     // Action
 }
 
 // Trailing icon
-Button("Next",
+SButton("Next",
        icon: Image(systemName: "arrow.right"),
        iconPosition: .trailing) {
     // Action
 }
+```
 
-Full Width & Disabled States
+##### Full Width & Disabled States
 
+```swift
 // Full width button
-Button("Submit", fullWidth: true) {
+SButton("Submit", fullWidth: true) {
     // Action
 }
 
 // Disabled button
-Button("Not Available", isEnabled: false) {
+SButton("Not Available", isEnabled: false) {
     // This action won't trigger
 }
+```
 
-🎨 Customization
-Theming
-SwiftCN is built on a token-based design system, making it incredibly customizable:
+### SAccordion
+A vertically stacked set of interactive headings that each reveal a section of content.
 
+#### Usage
+
+```swift
+import SwiftUI
+import SwiftShadUI
+
+struct AccordionExample: View {
+    var body: some View {
+        SAccordion(type: .single, defaultOpenItems: ["item-1"]) {
+            SAccordionItem(id: "item-1", title: "Is it accessible?") {
+                Text("Yes. It adheres to the WAI-ARIA design pattern.")
+                    .padding() // Add padding to content
+            }
+            SAccordionItem(id: "item-2", title: "Is it styled?") {
+                Text("Yes. It comes with default styles that matches the other components' aesthetic.")
+                    .padding()
+            }
+            SAccordionItem(id: "item-3", title: "Is it animated?") {
+                Text("Yes. It's animated by default, but you can disable it if you prefer.")
+                    .padding()
+            }
+        }
+        .padding() // Add padding around the accordion
+    }
+}
+```
+
+#### Types
+- `.single`: Allows only one item to be open at a time.
+- `.multiple`: Allows multiple items to be open simultaneously (default).
+
+#### Customization
+- `defaultOpenItems`: An array of item IDs that should be open by default.
+- `SAccordionItem`:
+    - `id`: A unique string identifier for the item.
+    - `title`: The text displayed in the item's header.
+    - `icon`: An optional `Image` to display next to the title (not implemented in the current version shown).
+    - `content`: The view to display when the item is open.
+
+## 🎨 Customization
+### Theming
+SwiftShadUI is built on a token-based design system, making it incredibly customizable:
+
+```swift
 // Use the default slate theme
 // Or customize with your own colors in Assets.xcassets
+```
 
-Design Tokens
+### Design Tokens
 
+```swift
 // Typography
 Text("Heading").typography(.h1)
 Text("Body text").typography(.base)
@@ -146,79 +201,91 @@ Text("Body text").typography(.base)
 // Spacing
 .padding(Spacing.md)
 .padding(.horizontal, Spacing.lg)
+```
 
-📱 Examples
-Sign-Up Form
+## 📱 Examples
+### Sign-Up Form
 
+```swift
 VStack(spacing: Spacing.lg) {
     Text("Create an Account")
         .typography(.h2)
-    
+
     // Form fields would go here
-    
-    Button("Sign Up", fullWidth: true) {
+
+    SButton("Sign Up", fullWidth: true) {
         // Handle sign up
     }
-    
-    Button("Already have an account?",
+
+    SButton("Already have an account?",
            variant: .link) {
         // Navigate to login
     }
 }
 .padding()
+```
 
-Action Sheet
+### Action Sheet
 
+```swift
 VStack(spacing: Spacing.md) {
-    Button("Save Changes", fullWidth: true) {
+    SButton("Save Changes", fullWidth: true) {
         // Save action
     }
-    
-    Button("Discard",
+
+    SButton("Discard",
            variant: .outline,
            fullWidth: true) {
         // Discard action
     }
-    
-    Button("Cancel",
+
+    SButton("Cancel",
            variant: .ghost,
            fullWidth: true) {
         // Cancel action
     }
 }
 .padding()
+```
 
-🗺️ Roadmap
-SwiftCN is just getting started! Here's what's coming:
-    •    ☐ More base components (Card, Input, Checkbox, Toggle)
-    •    ☐ Compound components (Form, Dialog, Dropdown)
-    •    ☐ Animation and transition presets
-    •    ☐ More themes beyond Slate
-    •    ☐ SwiftUI Previews Catalog
-    •    ☐ Documentation site with examples
-    •    ☐ iOS and macOS example apps
-🤝 Contributing
-We'd love your help making SwiftCN even better!
-    1.    Fork the repository
-    2.    Create a new branch (⁠git checkout -b feature/amazing-component)
-    3.    Make your changes
-    4.    Run tests (⁠swift test)
-    5.    Commit your changes (⁠git commit -m 'Add amazing component')
-    6.    Push to the branch (⁠git push origin feature/amazing-component)
-    7.    Open a Pull Request
-Development Guidelines
-    •    Follow Swift style guidelines
-    •    Include previews for visual components
-    •    Write tests for new functionality
-    •    Update documentation with new components
-📄 License
-SwiftCN is available under the MIT license. See the LICENSE file for more information.
-💖 Acknowledgments
-    •    Inspired by shadcn/ui
-    •    Built with SwiftUI
-    •    Thanks to the open-source community
-🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftCN is your spellbook."
-This README is as customizable as the library itself! Feel free to adapt it to your needs.
+## 🗺️ Roadmap
+SwiftShadUI is just getting started! Here's what's coming:
+- [x] Accordion
+- [ ] More base components (Card, Input, Checkbox, Toggle)
+- [ ] Compound components (Form, Dialog, Dropdown)
+- [ ] Animation and transition presets
+- [ ] More themes beyond Slate
+- [ ] SwiftUI Previews Catalog
+- [ ] Documentation site with examples
+- [ ] iOS and macOS example apps
+
+## 🤝 Contributing
+We'd love your help making SwiftShadUI even better!
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-component`)
+3. Make your changes
+4. Run tests (`swift test`)
+5. Commit your changes (`git commit -m 'Add amazing component'`)
+6. Push to the branch (`git push origin feature/amazing-component`)
+7. Open a Pull Request
+
+### Development Guidelines
+- Follow Swift style guidelines
+- Include previews for visual components
+- Write tests for new functionality
+- Update documentation with new components
+
+## 📄 License
+SwiftShadUI is available under the MIT license. See the `LICENSE` file for more information.
+
+## 💖 Acknowledgments
+- Inspired by [shadcn/ui](https://ui.shadcn.com/)
+- Built with SwiftUI
+- Thanks to the open-source community
+
+> 🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftShadUI is your spellbook."
+
+*This README is as customizable as the library itself! Feel free to adapt it to your needs.*
 
 
 

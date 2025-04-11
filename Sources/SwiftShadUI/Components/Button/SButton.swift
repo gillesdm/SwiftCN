@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct Button: View {
+public struct SButton: View {
     private let title: String
     private let variant: ButtonVariant
     private let size: ButtonSize
