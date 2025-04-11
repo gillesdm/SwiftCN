@@ -67,125 +67,125 @@ struct ContentView: View {
 ## 🧩 Components
 
 <details>
-    <summary>SButton</summary>
-    
-    ### SButton
-    The SButton component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
+<summary>SButton</summary>
 
-    #### Variants
+### SButton
+The SButton component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
 
-    ```swift
-    // Primary button (default)
-    SButton("Primary Button") {
-        // Action here
-    }
+#### Variants
 
-    // Secondary button
-    SButton("Secondary Button", variant: .secondary) {
-        // Action here
-    }
+```swift
+// Primary button (default)
+SButton("Primary Button") {
+    // Action here
+}
 
-    // Outline button
-    SButton("Outline Button", variant: .outline) {
-        // Action here
-    }
+// Secondary button
+SButton("Secondary Button", variant: .secondary) {
+    // Action here
+}
 
-    // Ghost button
-    SButton("Ghost Button", variant: .ghost) {
-        // Action here
-    }
+// Outline button
+SButton("Outline Button", variant: .outline) {
+    // Action here
+}
 
-    // Link button
-    SButton("Link Button", variant: .link) {
-        // Action here
-    }
+// Ghost button
+SButton("Ghost Button", variant: .ghost) {
+    // Action here
+}
 
-    // Destructive button
-    SButton("Delete", variant: .destructive) {
-        // Careful now!
-    }
-    ```
+// Link button
+SButton("Link Button", variant: .link) {
+    // Action here
+}
 
-    ##### Sizes
+// Destructive button
+SButton("Delete", variant: .destructive) {
+    // Careful now!
+}
+```
 
-    ```swift
-    SButton("Small", size: .sm) {}
-    SButton("Medium", size: .md) {} // Default
-    SButton("Large", size: .lg) {}
-    ```
+##### Sizes
 
-    ##### Icons
+```swift
+SButton("Small", size: .sm) {}
+SButton("Medium", size: .md) {} // Default
+SButton("Large", size: .lg) {}
+```
 
-    ```swift
-    // Leading icon (default)
-    SButton("With Icon",
-           icon: Image(systemName: "star.fill")) {
-        // Action
-    }
+##### Icons
 
-    // Trailing icon
-    SButton("Next",
-           icon: Image(systemName: "arrow.right"),
-           iconPosition: .trailing) {
-        // Action
-    }
-    ```
+```swift
+// Leading icon (default)
+SButton("With Icon",
+       icon: Image(systemName: "star.fill")) {
+    // Action
+}
 
-    ##### Full Width & Disabled States
+// Trailing icon
+SButton("Next",
+       icon: Image(systemName: "arrow.right"),
+       iconPosition: .trailing) {
+    // Action
+}
+```
 
-    ```swift
-    // Full width button
-    SButton("Submit", fullWidth: true) {
-        // Action
-    }
+##### Full Width & Disabled States
 
-    // Disabled button
-    SButton("Not Available", isEnabled: false) {
-        // This action won't trigger
-    }
-    ```
+```swift
+// Full width button
+SButton("Submit", fullWidth: true) {
+    // Action
+}
 
-    ### SAccordion
-    A vertically stacked set of interactive headings that each reveal a section of content.
+// Disabled button
+SButton("Not Available", isEnabled: false) {
+    // This action won't trigger
+}
+```
 
-    #### Usage
+### SAccordion
+A vertically stacked set of interactive headings that each reveal a section of content.
 
-    ```swift
-    import SwiftUI
-    import SwiftCN
+#### Usage
 
-    struct AccordionExample: View {
-        var body: some View {
-            SAccordion(type: .single, defaultOpenItems: ["item-1"]) {
-                SAccordionItem(id: "item-1", title: "Is it accessible?") {
-                    Text("Yes. It adheres to the WAI-ARIA design pattern.")
-                        .padding() // Add padding to content
-                }
-                SAccordionItem(id: "item-2", title: "Is it styled?") {
-                    Text("Yes. It comes with default styles that matches the other components' aesthetic.")
-                        .padding()
-                }
-                SAccordionItem(id: "item-3", title: "Is it animated?") {
-                    Text("Yes. It's animated by default, but you can disable it if you prefer.")
-                        .padding()
-                }
+```swift
+import SwiftUI
+import SwiftCN
+
+struct AccordionExample: View {
+    var body: some View {
+        SAccordion(type: .single, defaultOpenItems: ["item-1"]) {
+            SAccordionItem(id: "item-1", title: "Is it accessible?") {
+                Text("Yes. It adheres to the WAI-ARIA design pattern.")
+                    .padding() // Add padding to content
             }
-            .padding() // Add padding around the accordion
+            SAccordionItem(id: "item-2", title: "Is it styled?") {
+                Text("Yes. It comes with default styles that matches the other components' aesthetic.")
+                    .padding()
+            }
+            SAccordionItem(id: "item-3", title: "Is it animated?") {
+                Text("Yes. It's animated by default, but you can disable it if you prefer.")
+                    .padding()
+            }
         }
+        .padding() // Add padding around the accordion
     }
-    ```
+}
+```
 
-    #### Types
-    - `.single`: Allows only one item to be open at a time.
-    - `.multiple`: Allows multiple items to be open simultaneously (default).
+#### Types
+- `.single`: Allows only one item to be open at a time.
+- `.multiple`: Allows multiple items to be open simultaneously (default).
 
-    #### Customization
-    - `defaultOpenItems`: An array of item IDs that should be open by default.
-    - `SAccordionItem`:
-        - `id`: A unique string identifier for the item.
-        - `title`: The text displayed in the item's header.
-        - `icon`: An optional `Image` to display next to the title (not implemented in the current version shown).
-        - `content`: The view to display when the item is open.
+#### Customization
+- `defaultOpenItems`: An array of item IDs that should be open by default.
+- `SAccordionItem`:
+    - `id`: A unique string identifier for the item.
+    - `title`: The text displayed in the item's header.
+    - `icon`: An optional `Image` to display next to the title (not implemented in the current version shown).
+    - `content`: The view to display when the item is open.
 </details>
     
 ### SAlert
