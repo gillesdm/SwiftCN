@@ -1,9 +1,9 @@
 
-# SwiftShadUI: Where shadcn/ui meets SwiftUI in a beautiful, customizable design system
+# SwiftCN: Where shadcn/ui meets SwiftUI in a beautiful, customizable design system
 
 🪄 **The Magic of shadcn/ui, Now in SwiftUI!**
-SwiftShadUI brings the elegant, customizable design philosophy of shadcn/ui to the SwiftUI ecosystem. Not a rigid component library, but a collection of reusable components you can copy, paste, and customize to your heart's content!
-Built on a solid foundation of design tokens and best practices, SwiftShadUI gives you the building blocks for creating beautiful, accessible, and consistent UIs without sacrificing flexibility.
+SwiftCN brings the elegant, customizable design philosophy of shadcn/ui to the SwiftUI ecosystem. Not a rigid component library, but a collection of reusable components you can copy, paste, and customize to your heart's content!
+Built on a solid foundation of design tokens and best practices, SwiftCN gives you the building blocks for creating beautiful, accessible, and consistent UIs without sacrificing flexibility.
 
 ## ✨ Features
 -  🧩 **Modular Components:** Use what you need, leave what you don't
@@ -16,9 +16,9 @@ Built on a solid foundation of design tokens and best practices, SwiftShadUI giv
 
 ## 📦 Installation
 ### Swift Package Manager
-Add SwiftShadUI to your project through Xcode:
+Add SwiftCN to your project through Xcode:
 1. Go to **File > Add Packages...**
-2. Enter the repository URL: `https://github.com/yourusername/SwiftShadUI.git`
+2. Enter the repository URL: `https://github.com/gillesdm/SwiftCN.git`
 3. Choose the version rule (recommended: **Up to Next Major**)
 4. Click **Add Package**
 
@@ -26,18 +26,18 @@ Or add it directly to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yourusername/SwiftShadUI.git", from: "0.1.0")
+    .package(url: "https://github.com/gillesdm/SwiftCN.git", from: "0.1.0")
 ]
 
 🚀 Quick Start
 
 import SwiftUI
-import SwiftShadUI
+import SwiftCN
 
 struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
-            Text("Welcome to SwiftShadUI!")
+            Text("Welcome to SwiftCN!")
                 .typography(.h2)
             
             Button("Get Started", size: .lg, fullWidth: true) {
@@ -64,7 +64,7 @@ struct ContentView: View {
 
 🧩 Components
 Button
-The Button component is the cornerstone of user interaction in any app. SwiftShadUI's button is highly customizable with various styles, sizes, and states.
+The Button component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
 Variants
 
 // Primary button (default)
@@ -132,7 +132,7 @@ Button("Not Available", isEnabled: false) {
 
 🎨 Customization
 Theming
-SwiftShadUI is built on a token-based design system, making it incredibly customizable:
+SwiftCN is built on a token-based design system, making it incredibly customizable:
 
 // Use the default slate theme
 // Or customize with your own colors in Assets.xcassets
@@ -189,7 +189,7 @@ VStack(spacing: Spacing.md) {
 .padding()
 
 🗺️ Roadmap
-SwiftShadUI is just getting started! Here's what's coming:
+SwiftCN is just getting started! Here's what's coming:
     •    ☐ More base components (Card, Input, Checkbox, Toggle)
     •    ☐ Compound components (Form, Dialog, Dropdown)
     •    ☐ Animation and transition presets
@@ -198,7 +198,7 @@ SwiftShadUI is just getting started! Here's what's coming:
     •    ☐ Documentation site with examples
     •    ☐ iOS and macOS example apps
 🤝 Contributing
-We'd love your help making SwiftShadUI even better!
+We'd love your help making SwiftCN even better!
     1.    Fork the repository
     2.    Create a new branch (⁠git checkout -b feature/amazing-component)
     3.    Make your changes
@@ -212,12 +212,12 @@ Development Guidelines
     •    Write tests for new functionality
     •    Update documentation with new components
 📄 License
-SwiftShadUI is available under the MIT license. See the LICENSE file for more information.
+SwiftCN is available under the MIT license. See the LICENSE file for more information.
 💖 Acknowledgments
     •    Inspired by shadcn/ui
     •    Built with SwiftUI
     •    Thanks to the open-source community
-🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftShadUI is your spellbook."
+🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftCN is your spellbook."
 This README is as customizable as the library itself! Feel free to adapt it to your needs.
 
 
