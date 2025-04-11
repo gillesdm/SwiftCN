@@ -69,6 +69,7 @@ The Button component is the cornerstone of user interaction in any app. SwiftCN'
 
 #### Variants
 
+```swift
 // Primary button (default)
 Button("Primary Button") {
     // Action here
@@ -98,15 +99,19 @@ Button("Link Button", variant: .link) {
 Button("Delete", variant: .destructive) {
     // Careful now!
 }
+```
 
-Sizes
+##### Sizes
 
+```swift
 Button("Small", size: .sm) {}
 Button("Medium", size: .md) {} // Default
 Button("Large", size: .lg) {}
+```
 
-Icons
+##### Icons
 
+```swift
 // Leading icon (default)
 Button("With Icon",
        icon: Image(systemName: "star.fill")) {
@@ -119,9 +124,11 @@ Button("Next",
        iconPosition: .trailing) {
     // Action
 }
+```
 
-Full Width & Disabled States
+##### Full Width & Disabled States
 
+```swift
 // Full width button
 Button("Submit", fullWidth: true) {
     // Action
@@ -131,16 +138,20 @@ Button("Submit", fullWidth: true) {
 Button("Not Available", isEnabled: false) {
     // This action won't trigger
 }
+```
 
-🎨 Customization
-Theming
+## 🎨 Customization
+### Theming
 SwiftCN is built on a token-based design system, making it incredibly customizable:
 
+```swift
 // Use the default slate theme
 // Or customize with your own colors in Assets.xcassets
+```
 
-Design Tokens
+### Design Tokens
 
+```swift
 // Typography
 Text("Heading").typography(.h1)
 Text("Body text").typography(.base)
@@ -148,40 +159,44 @@ Text("Body text").typography(.base)
 // Spacing
 .padding(Spacing.md)
 .padding(.horizontal, Spacing.lg)
+```
 
-📱 Examples
-Sign-Up Form
+## 📱 Examples
+### Sign-Up Form
 
+```swift
 VStack(spacing: Spacing.lg) {
     Text("Create an Account")
         .typography(.h2)
-    
+
     // Form fields would go here
-    
+
     Button("Sign Up", fullWidth: true) {
         // Handle sign up
     }
-    
+
     Button("Already have an account?",
            variant: .link) {
         // Navigate to login
     }
 }
 .padding()
+```
 
-Action Sheet
+### Action Sheet
 
+```swift
 VStack(spacing: Spacing.md) {
     Button("Save Changes", fullWidth: true) {
         // Save action
     }
-    
+
     Button("Discard",
            variant: .outline,
            fullWidth: true) {
         // Discard action
     }
-    
+
     Button("Cancel",
            variant: .ghost,
            fullWidth: true) {
@@ -189,38 +204,45 @@ VStack(spacing: Spacing.md) {
     }
 }
 .padding()
+```
 
-🗺️ Roadmap
+## 🗺️ Roadmap
 SwiftCN is just getting started! Here's what's coming:
-    •    ☐ More base components (Card, Input, Checkbox, Toggle)
-    •    ☐ Compound components (Form, Dialog, Dropdown)
-    •    ☐ Animation and transition presets
-    •    ☐ More themes beyond Slate
-    •    ☐ SwiftUI Previews Catalog
-    •    ☐ Documentation site with examples
-    •    ☐ iOS and macOS example apps
-🤝 Contributing
+- [ ] More base components (Card, Input, Checkbox, Toggle)
+- [ ] Compound components (Form, Dialog, Dropdown)
+- [ ] Animation and transition presets
+- [ ] More themes beyond Slate
+- [ ] SwiftUI Previews Catalog
+- [ ] Documentation site with examples
+- [ ] iOS and macOS example apps
+
+## 🤝 Contributing
 We'd love your help making SwiftCN even better!
-    1.    Fork the repository
-    2.    Create a new branch (⁠git checkout -b feature/amazing-component)
-    3.    Make your changes
-    4.    Run tests (⁠swift test)
-    5.    Commit your changes (⁠git commit -m 'Add amazing component')
-    6.    Push to the branch (⁠git push origin feature/amazing-component)
-    7.    Open a Pull Request
-Development Guidelines
-    •    Follow Swift style guidelines
-    •    Include previews for visual components
-    •    Write tests for new functionality
-    •    Update documentation with new components
-📄 License
-SwiftCN is available under the MIT license. See the LICENSE file for more information.
-💖 Acknowledgments
-    •    Inspired by shadcn/ui
-    •    Built with SwiftUI
-    •    Thanks to the open-source community
-🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftCN is your spellbook."
-This README is as customizable as the library itself! Feel free to adapt it to your needs.
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-component`)
+3. Make your changes
+4. Run tests (`swift test`)
+5. Commit your changes (`git commit -m 'Add amazing component'`)
+6. Push to the branch (`git push origin feature/amazing-component`)
+7. Open a Pull Request
+
+### Development Guidelines
+- Follow Swift style guidelines
+- Include previews for visual components
+- Write tests for new functionality
+- Update documentation with new components
+
+## 📄 License
+SwiftCN is available under the MIT license. See the `LICENSE` file for more information.
+
+## 💖 Acknowledgments
+- Inspired by [shadcn/ui](https://ui.shadcn.com/)
+- Built with SwiftUI
+- Thanks to the open-source community
+
+> 🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftCN is your spellbook."
+
+*This README is as customizable as the library itself! Feel free to adapt it to your needs.*
 
 
 
