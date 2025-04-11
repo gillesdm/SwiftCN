@@ -215,8 +215,6 @@ public extension SAvatar {
             case .success(let image):
                 SAvatar(image: image, initials: fallbackInitials, size: size, shape: shape, status: status)
             case .failure(let error):
-                let _ = print("❌ SAvatar [Standard] - Failed to load image from URL: \(url?.absoluteString ?? "nil")")
-                let _ = print("❌ SAvatar [Standard] - Error: \(error.localizedDescription)")
                 SAvatar(initials: fallbackInitials, size: size, shape: shape, status: status)
                     .overlay(
                         RoundedRectangle(cornerRadius: shape.cornerRadius(for: size))
@@ -249,8 +247,6 @@ public extension SAvatar {
             case .success(let image):
                  SAvatar(image: image, initials: fallbackInitials, size: size, shape: shape, status: status)
             case .failure(let error):
-                let _ = print("❌ SAvatar [Scale \(scale)] - Failed to load image from URL: \(url?.absoluteString ?? "nil")")
-                let _ = print("❌ SAvatar [Scale \(scale)] - Error: \(error.localizedDescription)")
                 SAvatar(initials: fallbackInitials, size: size, shape: shape, status: status)
                     .overlay(
                         RoundedRectangle(cornerRadius: shape.cornerRadius(for: size))
@@ -382,7 +378,6 @@ public struct URLSessionAvatarImage: View {
     }
     
     private func loadImage() {
-        print("🔄 URLSessionAvatarImage - Loading image from: \(url.absoluteString)")
         isLoading = true
         error = nil // Reset error on new load attempt
         
@@ -391,39 +386,30 @@ public struct URLSessionAvatarImage: View {
                 isLoading = false // Set loading to false once task completes
                 
                 if let taskError = taskError {
-                    print("❌ URLSessionAvatarImage - Error: \(taskError.localizedDescription)")
                     self.error = taskError
                     return
                 }
                 
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                     print("📊 URLSessionAvatarImage - HTTP Status: \(httpResponse.statusCode)")
                     self.error = NSError(domain: "HTTP Error", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "HTTP Status: \(httpResponse.statusCode)"])
                     return
                 }
                 
                 guard let data = data else {
-                    print("❌ URLSessionAvatarImage - No data received")
                     self.error = NSError(domain: "Data Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])
                     return
                 }
-                
-                print("📦 URLSessionAvatarImage - Received data of size: \(data.count) bytes")
-                
+                                
                 #if os(iOS)
                 if let loadedImage = UIImage(data: data) {
-                    print("✅ URLSessionAvatarImage - Successfully created image from data")
                     self.image = loadedImage
                 } else {
-                    print("❌ URLSessionAvatarImage - Failed to create image from data")
                     self.error = NSError(domain: "Image Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid image data"])
                 }
                 #elseif os(macOS)
                 if let loadedImage = NSImage(data: data) {
-                    print("✅ URLSessionAvatarImage - Successfully created image from data")
                     self.image = loadedImage
                 } else {
-                    print("❌ URLSessionAvatarImage - Failed to create image from data")
                     self.error = NSError(domain: "Image Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid image data"])
                 }
                 #endif
