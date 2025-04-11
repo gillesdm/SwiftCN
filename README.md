@@ -1,9 +1,9 @@
 
-# SwiftShadUI: Where shadcn/ui meets SwiftUI in a beautiful, customizable design system
+# SwiftCN: Where shadcn/ui meets SwiftUI in a beautiful, customizable design system
 
 🪄 **The Magic of shadcn/ui, Now in SwiftUI!**
-SwiftShadUI brings the elegant, customizable design philosophy of shadcn/ui to the SwiftUI ecosystem. Not a rigid component library, but a collection of reusable components you can copy, paste, and customize to your heart's content!
-Built on a solid foundation of design tokens and best practices, SwiftShadUI gives you the building blocks for creating beautiful, accessible, and consistent UIs without sacrificing flexibility.
+SwiftCN brings the elegant, customizable design philosophy of shadcn/ui to the SwiftUI ecosystem. Not a rigid component library, but a collection of reusable components you can copy, paste, and customize to your heart's content!
+Built on a solid foundation of design tokens and best practices, SwiftCN gives you the building blocks for creating beautiful, accessible, and consistent UIs without sacrificing flexibility.
 
 ## ✨ Features
 -  🧩 **Modular Components:** Use what you need, leave what you don't
@@ -16,9 +16,9 @@ Built on a solid foundation of design tokens and best practices, SwiftShadUI giv
 
 ## 📦 Installation
 ### Swift Package Manager
-Add SwiftShadUI to your project through Xcode:
+Add SwiftCN to your project through Xcode:
 1. Go to **File > Add Packages...**
-2. Enter the repository URL: `https://github.com/gillesdm/SwiftShadUI.git` (Note: Update this URL if it changes)
+2. Enter the repository URL: `https://github.com/gillesdm/SwiftCN.git` (Note: Update this URL if it changes)
 3. Choose the version rule (recommended: **Up to Next Major**)
 4. Click **Add Package**
 
@@ -26,18 +26,18 @@ Or add it directly to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/gillesdm/SwiftShadUI.git", from: "0.1.0") // Note: Update this URL if it changes
+    .package(url: "https://github.com/gillesdm/SwiftCN.git", from: "0.1.0") // Note: Update this URL if it changes
 ]
 
 🚀 Quick Start
 
 import SwiftUI
-import SwiftShadUI
+import SwiftCN
 
 struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
-            Text("Welcome to SwiftShadUI!")
+            Text("Welcome to SwiftCN!")
                 .typography(.h2)
 
             SButton("Get Started", size: .lg, fullWidth: true) {
@@ -65,7 +65,7 @@ struct ContentView: View {
 
 ## 🧩 Components
 ### SButton
-The SButton component is the cornerstone of user interaction in any app. SwiftShadUI's button is highly customizable with various styles, sizes, and states.
+The SButton component is the cornerstone of user interaction in any app. SwiftCN's button is highly customizable with various styles, sizes, and states.
 
 #### Variants
 
@@ -147,7 +147,7 @@ A vertically stacked set of interactive headings that each reveal a section of c
 
 ```swift
 import SwiftUI
-import SwiftShadUI
+import SwiftCN
 
 struct AccordionExample: View {
     var body: some View {
@@ -181,10 +181,106 @@ struct AccordionExample: View {
     - `title`: The text displayed in the item's header.
     - `icon`: An optional `Image` to display next to the title (not implemented in the current version shown).
     - `content`: The view to display when the item is open.
+    
+### SAlert
+
+The `SAlert` component displays important messages in different styles.
+
+#### Basic Usage
+
+```swift
+// Default alert with title and description
+SAlert(
+    title: "Heads up!",
+    description: "This is an important message."
+)
+
+// Destructive alert
+SAlert(
+    title: "Warning",
+    description: "This action cannot be undone.",
+    variant: .destructive
+)
+
+// Success alert
+SAlert(
+    title: "Success",
+    description: "Your changes have been saved.",
+    variant: .success
+)
+```
+
+#### Alert Variants
+
+```swift
+// Default variant
+SAlert(title: "Default", description: "Message...", variant: .default_)
+
+// Destructive variant
+SAlert(title: "Destructive", description: "Message...", variant: .destructive)
+
+// Success variant
+SAlert(title: "Success", description: "Message...", variant: .success)
+
+// Warning variant
+SAlert(title: "Warning", description: "Message...", variant: .warning)
+```
+
+#### Custom Content
+```swift
+SAlert(title: "Custom Content") {
+    VStack(alignment: .leading, spacing: 8) {
+        Text("You can add any custom content here.")
+        SButton("Take Action", size: .sm) {
+            // Handle action
+        }
+    }
+}
+```
+
+#### Custom Icon
+```swift
+SAlert(
+    title: "Custom Icon",
+    description: "This alert uses a custom icon.",
+    icon: Image(systemName: "star.fill")
+)
+
+```
+
+
+### Features of the SAlert Component:
+
+1. **Multiple Variants**: 
+   - Default (neutral information)
+   - Destructive (for dangerous actions)
+   - Success (for confirmations)
+   - Warning (for cautions)
+
+2. **Flexible Content**:
+   - Can display a title and description
+   - Supports custom content via ViewBuilder
+   - Simple initializer for text-only alerts
+
+3. **Visual Indicators**:
+   - Color-coded borders and icons
+   - Default icons for each variant
+   - Support for custom icons
+
+4. **Accessibility**:
+   - Combines children for proper screen reader behavior
+   - Semantic colors for light/dark mode
+
+5. **Customization**:
+   - Follows the SwiftCN design token system
+   - Clean, minimal design matching shadcn/ui style
+
+The design matches shadcn/ui's clean aesthetic with proper spacing, borders, and typography while maintaining support for both light and dark mode.
+
 
 ## 🎨 Customization
 ### Theming
-SwiftShadUI is built on a token-based design system, making it incredibly customizable:
+SwiftCN is built on a token-based design system, making it incredibly customizable:
 
 ```swift
 // Use the default slate theme
@@ -203,53 +299,8 @@ Text("Body text").typography(.base)
 .padding(.horizontal, Spacing.lg)
 ```
 
-## 📱 Examples
-### Sign-Up Form
-
-```swift
-VStack(spacing: Spacing.lg) {
-    Text("Create an Account")
-        .typography(.h2)
-
-    // Form fields would go here
-
-    SButton("Sign Up", fullWidth: true) {
-        // Handle sign up
-    }
-
-    SButton("Already have an account?",
-           variant: .link) {
-        // Navigate to login
-    }
-}
-.padding()
-```
-
-### Action Sheet
-
-```swift
-VStack(spacing: Spacing.md) {
-    SButton("Save Changes", fullWidth: true) {
-        // Save action
-    }
-
-    SButton("Discard",
-           variant: .outline,
-           fullWidth: true) {
-        // Discard action
-    }
-
-    SButton("Cancel",
-           variant: .ghost,
-           fullWidth: true) {
-        // Cancel action
-    }
-}
-.padding()
-```
-
 ## 🗺️ Roadmap
-SwiftShadUI is just getting started! Here's what's coming:
+SwiftCN is just getting started! Here's what's coming:
 - [x] Accordion
 - [ ] More base components (Card, Input, Checkbox, Toggle)
 - [ ] Compound components (Form, Dialog, Dropdown)
@@ -260,7 +311,7 @@ SwiftShadUI is just getting started! Here's what's coming:
 - [ ] iOS and macOS example apps
 
 ## 🤝 Contributing
-We'd love your help making SwiftShadUI even better!
+We'd love your help making SwiftCN even better!
 1. Fork the repository
 2. Create a new branch (`git checkout -b feature/amazing-component`)
 3. Make your changes
@@ -276,17 +327,11 @@ We'd love your help making SwiftShadUI even better!
 - Update documentation with new components
 
 ## 📄 License
-SwiftShadUI is available under the MIT license. See the `LICENSE` file for more information.
+SwiftCN is available under the MIT license. See the `LICENSE` file for more information.
 
 ## 💖 Acknowledgments
 - Inspired by [shadcn/ui](https://ui.shadcn.com/)
 - Built with SwiftUI
 - Thanks to the open-source community
 
-> 🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftShadUI is your spellbook."
-
-*This README is as customizable as the library itself! Feel free to adapt it to your needs.*
-
-
-
-
+> 🧙‍♂️ "Great UIs are indistinguishable from magic. SwiftCN is your spellbook."
