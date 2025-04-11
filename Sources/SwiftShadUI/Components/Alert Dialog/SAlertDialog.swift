@@ -5,7 +5,7 @@ import SwiftUI
 @available(iOS 15.0, macOS 12.0, *)
 public struct SAlertDialog<TriggerContent: View, Content: View>: View {
     @Binding private var isOpen: Bool
-    private let triggerContent: TriggerContent
+    private let triggerContent: ((@escaping () -> Void)) -> TriggerContent
     private let content: Content
     
     @State private var animationState: AnimationState = .closed
@@ -18,25 +18,25 @@ public struct SAlertDialog<TriggerContent: View, Content: View>: View {
     /// Creates a new alert dialog with a custom trigger and content
     /// - Parameters:
     ///   - isOpen: Binding that controls whether the dialog is shown
-    ///   - triggerContent: Content that will trigger the dialog when tapped
+    ///   - triggerContent: Content that will trigger the dialog when tapped, receives openDialog action
     ///   - content: Content of the dialog
     public init(
         isOpen: Binding<Bool>,
-        @ViewBuilder triggerContent: () -> TriggerContent,
+        @ViewBuilder triggerContent: @escaping ((@escaping () -> Void)) -> TriggerContent,
         @ViewBuilder content: () -> Content
     ) {
         self._isOpen = isOpen
-        self.triggerContent = triggerContent()
+        self.triggerContent = triggerContent
         self.content = content()
     }
     
     public var body: some View {
         ZStack {
-            // Trigger
-            triggerContent
-                .onTapGesture {
-                    openDialog()
-                }
+            // Trigger with explicit open action passed to it
+            triggerContent({
+                print("Dialog trigger tapped") // Logging
+                openDialog()
+            })
             
             // Dialog overlay (only shown when isOpen is true)
             if isOpen {
@@ -46,6 +46,7 @@ public struct SAlertDialog<TriggerContent: View, Content: View>: View {
                         Colors.overlay
                             .edgesIgnoringSafeArea(.all)
                             .onTapGesture {
+                                print("Backdrop tapped") // Logging
                                 closeDialog()
                             }
                         
@@ -58,26 +59,30 @@ public struct SAlertDialog<TriggerContent: View, Content: View>: View {
                             .frame(maxWidth: min(geometry.size.width * 0.9, 500))
                             .scaleEffect(animationState == .open ? 1 : 0.95)
                             .opacity(animationState == .open ? 1 : 0)
+                            .onTapGesture { } // Prevent taps from reaching backdrop
                     }
                 }
                 .transition(.opacity)
                 .zIndex(999)
                 .onAppear {
+                    print("Dialog appeared") // Logging
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                         animationState = .open
                     }
                 }
                 .onDisappear {
+                    print("Dialog disappeared") // Logging
                     animationState = .closed
                 }
                 .handleEscapeKey {
+                    print("Escape key pressed") // Logging
                     closeDialog()
                 }
                 #if os(iOS)
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 20)
                         .onEnded { _ in
-                            // Allow swiping to dismiss on iOS
+                            print("Drag gesture detected") // Logging
                             closeDialog()
                         }
                 )
@@ -87,21 +92,25 @@ public struct SAlertDialog<TriggerContent: View, Content: View>: View {
     }
     
     private func openDialog() {
+        print("openDialog() called, setting isOpen to true") // Logging
         isOpen = true
     }
     
     private func closeDialog() {
+        print("closeDialog() called") // Logging
         withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
             animationState = .closed
         }
         
         // Slight delay to allow the animation to complete
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            print("Dialog closing after animation") // Logging
             isOpen = false
         }
     }
 }
 
+// Rest of the file remains the same
 /// Pre-defined parts of the alert dialog
 @available(iOS 15.0, macOS 12.0, *)
 public struct SAlertDialogParts {

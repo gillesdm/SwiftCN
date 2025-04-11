@@ -15,9 +15,12 @@ struct SAlertDialogPreviews: PreviewProvider {
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(Colors.foreground)
                     
-                    // Standard dialog example
-                    SAlertDialog(isOpen: $showDialog) {
-                        SButton("Open Dialog", action: {})
+                    // Standard dialog example - updated to pass open action to button
+                    SAlertDialog(isOpen: $showDialog) { openAction in
+                        SButton("Open Dialog") {
+                            print("Button tapped, calling openAction")
+                            openAction()
+                        }
                     } content: {
                         VStack(alignment: .leading, spacing: 0) {
                             SAlertDialogParts.Title("Are you sure?")
@@ -25,19 +28,24 @@ struct SAlertDialogPreviews: PreviewProvider {
                             
                             SAlertDialogParts.Footer {
                                 SButton("Cancel", variant: .outline) {
+                                    print("Cancel button tapped")
                                     showDialog = false
                                 }
                                 
                                 SButton("Continue", variant: .destructive) {
+                                    print("Continue button tapped")
                                     showDialog = false
                                 }
                             }
                         }
                     }
                     
-                    // Destructive dialog example
-                    SAlertDialog(isOpen: $showDeleteDialog) {
-                        SButton("Delete Account", variant: .destructive, action: {})
+                    // Destructive dialog example - updated to pass open action to button
+                    SAlertDialog(isOpen: $showDeleteDialog) { openAction in
+                        SButton("Delete Account", variant: .destructive) {
+                            print("Delete Account button tapped, calling openAction")
+                            openAction()
+                        }
                     } content: {
                         VStack(alignment: .leading, spacing: 0) {
                             SAlertDialogParts.Title("Delete Account")
@@ -45,10 +53,12 @@ struct SAlertDialogPreviews: PreviewProvider {
                             
                             SAlertDialogParts.Footer {
                                 SButton("Cancel", variant: .ghost) {
+                                    print("Cancel delete button tapped")
                                     showDeleteDialog = false
                                 }
                                 
                                 SButton("Delete", variant: .destructive) {
+                                    print("Confirm delete button tapped")
                                     showDeleteDialog = false
                                 }
                             }
@@ -56,6 +66,9 @@ struct SAlertDialogPreviews: PreviewProvider {
                     }
                 }
                 .padding()
+            }
+            .onAppear {
+                print("Preview appeared")
             }
         }
     }
